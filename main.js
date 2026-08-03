@@ -1,0 +1,466 @@
+/* ==========================================================================
+   GATORADE ® — AWWWARDS SITE-EXPERIÊNCIA
+   GSAP 3 + ScrollTrigger + Lenis Smooth Scroll Engine
+   ========================================================================== */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  // Register GSAP Plugins
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* --------------------------------------------------------------------------
+     1. LENIS SMOOTH SCROLL INITIALIZATION
+     -------------------------------------------------------------------------- */
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    orientation: 'vertical',
+    gestureOrientation: 'vertical',
+    smoothWheel: true,
+    wheelMultiplier: 1,
+    touchMultiplier: 2,
+    infinite: false,
+  });
+
+  // Synchronize Lenis scroll with GSAP ScrollTrigger
+  lenis.on('scroll', ScrollTrigger.update);
+
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
+
+  gsap.ticker.lagSmoothing(0);
+
+  /* --------------------------------------------------------------------------
+     2. PRELOADER ENGINE & ENTRANCE ANIMATION
+     -------------------------------------------------------------------------- */
+  const preloader = document.getElementById('preloader');
+  const preloaderFill = document.getElementById('preloader-fill');
+  const preloaderCounter = document.getElementById('preloader-counter');
+
+  const imagesToLoad = [
+    'imagens/imgGATORADE.png',
+    'imagens/imgGATORADE (1).png',
+    'imagens/imgGATORADE (2).png',
+    'imagens/imgGATORADE (4).png',
+    'imagens/imgGATORADE (5).png',
+    'imagens/imgGATORADE (7).png'
+  ];
+
+  let loadedCount = 0;
+  const totalImages = imagesToLoad.length;
+
+  function updateProgress() {
+    loadedCount++;
+    const progress = Math.round((loadedCount / totalImages) * 100);
+    
+    if (preloaderFill) preloaderFill.style.width = `${progress}%`;
+    if (preloaderCounter) preloaderCounter.textContent = progress < 10 ? `0${progress}` : progress;
+
+    if (loadedCount >= totalImages) {
+      setTimeout(finishPreloader, 400);
+    }
+  }
+
+  imagesToLoad.forEach(src => {
+    const img = new Image();
+    img.onload = updateProgress;
+    img.onerror = updateProgress;
+    img.src = src;
+  });
+
+  // Fallback in case of slow network
+  setTimeout(() => {
+    if (preloader && !preloader.classList.contains('loaded')) {
+      finishPreloader();
+    }
+  }, 3000);
+
+  function finishPreloader() {
+    if (preloader) preloader.classList.add('loaded');
+
+    // Hero Entrance Timeline
+    const heroTl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.2 } });
+
+    heroTl
+      .from('.hero-logo-badge', {
+        y: -40,
+        opacity: 0,
+        delay: 0.2
+      })
+      .from('.hero-header-wrap > *', {
+        y: 50,
+        opacity: 0,
+        stagger: 0.15
+      }, '-=0.8')
+      .from('.hero-lineup-img', {
+        scale: 0.85,
+        opacity: 0,
+        duration: 1.4
+      }, '-=0.8')
+      .from('.floating-spec', {
+        y: 30,
+        opacity: 0,
+        stagger: 0.2
+      }, '-=1.0');
+  }
+
+  /* --------------------------------------------------------------------------
+     3. DYNAMIC FLAVORS DATA & SPOTLIGHT PINNED STACK ENGINE
+     -------------------------------------------------------------------------- */
+  const flavors = [
+    {
+      id: 0,
+      name: "MORANGO MARACUJÁ",
+      bgText: "MORANGO",
+      img: "imagens/imgGATORADE (4).png",
+      glowColor: "#FF1E43",
+      bgColor: "#1A0408",
+      codeTag: "#01",
+      desc: "Equilíbrio energético vibrante com o dulçor natural do morango e a acidez revigorante do maracujá.",
+      purity: "94%",
+      vol: "500ml",
+      na: "230mg",
+      k: "60mg",
+      carbo: "30g"
+    },
+    {
+      id: 1,
+      name: "UVA INTENSO",
+      bgText: "UVA",
+      img: "imagens/imgGATORADE (5).png",
+      glowColor: "#8A2BE2",
+      bgColor: "#150524",
+      codeTag: "#02",
+      desc: "Sabor encorpado e refrescância acelerada para uma recuperação muscular e hidratação profunda.",
+      purity: "98%",
+      vol: "500ml",
+      na: "240mg",
+      k: "70mg",
+      carbo: "32g"
+    },
+    {
+      id: 2,
+      name: "BERRY BLUE",
+      bgText: "BERRY",
+      img: "imagens/imgGATORADE.png",
+      glowColor: "#0070FF",
+      bgColor: "#041126",
+      codeTag: "#03",
+      desc: "Carga de eletrólitos com perfil sensorial gelado e explosão refrescante de frutas azuis.",
+      purity: "96%",
+      vol: "500ml",
+      na: "225mg",
+      k: "65mg",
+      carbo: "29g"
+    },
+    {
+      id: 3,
+      name: "LARANJA SOLAR",
+      bgText: "LARANJA",
+      img: "imagens/imgGATORADE (1).png",
+      glowColor: "#FF6B00",
+      bgColor: "#240B00",
+      codeTag: "#04",
+      desc: "Impulso citrino de energia solar para repor fluidos perdidos em treinos de alta intensidade.",
+      purity: "92%",
+      vol: "500ml",
+      na: "235mg",
+      k: "58mg",
+      carbo: "31g"
+    }
+  ];
+
+  let currentFlavorIndex = 0;
+  const root = document.documentElement;
+
+  // UI Elements for Spotlight
+  const spotlightBottleImg = document.getElementById('spotlight-bottle-img');
+  const flavorBgText = document.getElementById('flavor-bg-text');
+  const flavorCodeTag = document.getElementById('flavor-code-tag');
+  const flavorTitle = document.getElementById('flavor-title');
+  const flavorDesc = document.getElementById('flavor-desc');
+  const purityFill = document.getElementById('purity-fill');
+  const specVol = document.getElementById('spec-vol');
+  const specNa = document.getElementById('spec-na');
+  const specK = document.getElementById('spec-k');
+  const specCarbo = document.getElementById('spec-carbo');
+  const currentSlideNum = document.getElementById('current-slide-num');
+  const dotBtns = document.querySelectorAll('.dot-btn');
+
+  function updateFlavorUI(index, animate = true) {
+    if (index === currentFlavorIndex && animate) return;
+    const flavor = flavors[index];
+    currentFlavorIndex = index;
+
+    // Update CSS Custom Properties for Dynamic Ambient Glow & Background Color!
+    root.style.setProperty('--glow-current', flavor.glowColor);
+    root.style.setProperty('--bg-current-flavor', flavor.bgColor);
+
+    if (animate) {
+      // Animate Bottle Transition (Scale + Crossfade)
+      gsap.to(spotlightBottleImg, {
+        scale: 0.82,
+        opacity: 0,
+        duration: 0.35,
+        ease: "power2.in",
+        onComplete: () => {
+          spotlightBottleImg.src = flavor.img;
+          spotlightBottleImg.alt = `Gatorade ${flavor.name}`;
+          gsap.to(spotlightBottleImg, {
+            scale: 1,
+            opacity: 1,
+            duration: 0.5,
+            ease: "back.out(1.4)"
+          });
+        }
+      });
+
+      // Animate Text Morphing
+      gsap.to([flavorTitle, flavorDesc, flavorBgText], {
+        y: -15,
+        opacity: 0,
+        duration: 0.3,
+        stagger: 0.05,
+        onComplete: () => {
+          if (flavorBgText) flavorBgText.textContent = flavor.bgText;
+          if (flavorCodeTag) flavorCodeTag.textContent = flavor.codeTag;
+          if (flavorTitle) flavorTitle.textContent = flavor.name;
+          if (flavorDesc) flavorDesc.textContent = flavor.desc;
+          if (specVol) specVol.textContent = flavor.vol;
+          if (specNa) specNa.textContent = flavor.na;
+          if (specK) specK.textContent = flavor.k;
+          if (specCarbo) specCarbo.textContent = flavor.carbo;
+          if (purityFill) purityFill.style.width = flavor.purity;
+          if (currentSlideNum) currentSlideNum.textContent = `0${index + 1}`;
+
+          gsap.to([flavorTitle, flavorDesc, flavorBgText], {
+            y: 0,
+            opacity: 1,
+            duration: 0.4,
+            stagger: 0.05,
+            ease: "power2.out"
+          });
+        }
+      });
+
+    } else {
+      // Instant initial load
+      if (spotlightBottleImg) spotlightBottleImg.src = flavor.img;
+      if (flavorBgText) flavorBgText.textContent = flavor.bgText;
+      if (flavorCodeTag) flavorCodeTag.textContent = flavor.codeTag;
+      if (flavorTitle) flavorTitle.textContent = flavor.name;
+      if (flavorDesc) flavorDesc.textContent = flavor.desc;
+      if (specVol) specVol.textContent = flavor.vol;
+      if (specNa) specNa.textContent = flavor.na;
+      if (specK) specK.textContent = flavor.k;
+      if (specCarbo) specCarbo.textContent = flavor.carbo;
+      if (purityFill) purityFill.style.width = flavor.purity;
+      if (currentSlideNum) currentSlideNum.textContent = `0${index + 1}`;
+    }
+
+    // Update Indicator Dots
+    dotBtns.forEach((dot, idx) => {
+      if (idx === index) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+  }
+
+  // GSAP ScrollTrigger Pinned Spotlight Section
+  const spotlightPin = document.getElementById('spotlight-pin');
+  if (spotlightPin) {
+    ScrollTrigger.create({
+      trigger: spotlightPin,
+      start: "top top",
+      end: "+=2800",
+      pin: true,
+      anticipatePin: 1,
+      onUpdate: (self) => {
+        const progress = self.progress;
+        let targetIndex = Math.floor(progress * flavors.length);
+        if (targetIndex >= flavors.length) targetIndex = flavors.length - 1;
+        updateFlavorUI(targetIndex, true);
+      }
+    });
+  }
+
+  // Dot buttons click listener
+  dotBtns.forEach((dot) => {
+    dot.addEventListener('click', (e) => {
+      const targetSlide = parseInt(e.currentTarget.getAttribute('data-slide'));
+      updateFlavorUI(targetSlide, true);
+    });
+  });
+
+  /* --------------------------------------------------------------------------
+     4. SLIDE FLOATING BENEFIT BALLOONS ON SCROLL
+     -------------------------------------------------------------------------- */
+  const benefitsPin = document.getElementById('benefits-pin');
+  const balloons = document.querySelectorAll('.benefit-balloon');
+
+  if (benefitsPin && balloons.length) {
+    const benefitsTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: benefitsPin,
+        start: "top top",
+        end: "+=2200",
+        pin: true,
+        scrub: 0.8
+      }
+    });
+
+    // Animate each balloon rising from bottom to top sequentially
+    balloons.forEach((balloon, i) => {
+      benefitsTl.to(balloon, {
+        opacity: 1,
+        y: 0,
+        scale: 1.05,
+        duration: 1,
+        ease: "power2.out"
+      }, i * 0.8);
+    });
+  }
+
+  /* --------------------------------------------------------------------------
+     5. VIDEO SCROLL SCRUB CONTROL ENGINE
+     -------------------------------------------------------------------------- */
+  const videoSection = document.getElementById('video-section');
+  const scrollVideo = document.getElementById('scroll-video');
+
+  if (videoSection && scrollVideo) {
+    scrollVideo.pause();
+    scrollVideo.currentTime = 0;
+
+    const initVideoScrub = () => {
+      ScrollTrigger.create({
+        trigger: videoSection,
+        start: "top top",
+        end: "+=2500",
+        pin: true,
+        scrub: 0.5,
+        onUpdate: (self) => {
+          if (scrollVideo.duration) {
+            scrollVideo.currentTime = self.progress * scrollVideo.duration;
+          }
+        }
+      });
+    };
+
+    if (scrollVideo.readyState >= 1) {
+      initVideoScrub();
+    } else {
+      scrollVideo.addEventListener('loadedmetadata', initVideoScrub);
+    }
+  }
+
+  /* --------------------------------------------------------------------------
+     6. HERO PARALLAX & BOTTLE FLOATING PHYSICS
+     -------------------------------------------------------------------------- */
+  const heroStage = document.querySelector('.hero-lineup-stage');
+  const heroImg = document.getElementById('hero-lineup-img');
+
+  if (heroStage && heroImg) {
+    heroStage.addEventListener('mousemove', (e) => {
+      const rect = heroStage.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      gsap.to(heroImg, {
+        rotateY: x * 0.03,
+        rotateX: -y * 0.03,
+        x: x * 0.02,
+        y: y * 0.02,
+        duration: 0.8,
+        ease: "power2.out"
+      });
+    });
+
+    heroStage.addEventListener('mouseleave', () => {
+      gsap.to(heroImg, {
+        rotateY: 0,
+        rotateX: 0,
+        x: 0,
+        y: 0,
+        duration: 1,
+        ease: "power2.out"
+      });
+    });
+  }
+
+  /* --------------------------------------------------------------------------
+     7. ASYMMETRIC SELECTION CARDS — 3D TILT & DYNAMIC BG CHANGE
+     -------------------------------------------------------------------------- */
+  const asymmetricCards = document.querySelectorAll('.asymmetric-card');
+  
+  asymmetricCards.forEach((card) => {
+    const customGlow = card.getAttribute('data-glow');
+    const customBg = card.getAttribute('data-bg');
+    card.style.setProperty('--card-glow', customGlow);
+
+    card.addEventListener('mouseenter', () => {
+      if (customGlow) root.style.setProperty('--glow-current', customGlow);
+      if (customBg) root.style.setProperty('--bg-current-flavor', customBg);
+    });
+
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = (y - centerY) / 12;
+      const rotateY = (centerX - x) / 12;
+
+      gsap.to(card, {
+        transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(1.02)`,
+        duration: 0.4,
+        ease: "power2.out"
+      });
+    });
+
+    card.addEventListener('mouseleave', () => {
+      gsap.to(card, {
+        transform: `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale(1)`,
+        duration: 0.6,
+        ease: "power2.out"
+      });
+    });
+
+    card.addEventListener('click', () => {
+      const flavorIndex = Array.from(asymmetricCards).indexOf(card);
+      lenis.scrollTo('#spotlight-pin');
+      setTimeout(() => {
+        updateFlavorUI(flavorIndex, true);
+      }, 500);
+    });
+  });
+
+  /* --------------------------------------------------------------------------
+     8. GLOBAL SCROLL ENTRANCE ANIMATIONS FOR ALL ITEMS
+     -------------------------------------------------------------------------- */
+  const animElements = document.querySelectorAll('.scroll-anim');
+  
+  animElements.forEach((el) => {
+    const animType = el.getAttribute('data-anim') || 'fade-up';
+    let fromState = { opacity: 0, y: 40 };
+
+    if (animType === 'fade-down') fromState = { opacity: 0, y: -40 };
+    if (animType === 'scale-up') fromState = { opacity: 0, scale: 0.88 };
+
+    gsap.from(el, {
+      scrollTrigger: {
+        trigger: el,
+        start: "top 85%",
+        toggleActions: "play none none reverse"
+      },
+      ...fromState,
+      duration: 1,
+      ease: "power3.out"
+    });
+  });
+
+});

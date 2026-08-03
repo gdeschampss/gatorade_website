@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GATORADE ® — Hydro Electrolyte Experience</title>
+  <meta name="description" content="Uma experiência sensorial e imersiva de alta performance sobre a ciência da hidratação Gatorade. Luz, movimento e produto em harmonia.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+  <!-- Lenis CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.9/dist/lenis.css">
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Screen Preloader -->
+  <div id="preloader" class="preloader">
+    <div class="preloader-content">
+      <div class="preloader-logo">
+        <img src="imagens/imgGATORADE (7).png" alt="Gatorade Logo" class="preloader-g-logo">
+        <span class="brand-text">GATORADE</span>
+      </div>
+      <div class="preloader-progress-bar">
+        <div id="preloader-fill" class="preloader-fill"></div>
+      </div>
+      <div class="preloader-status">
+        <span id="preloader-counter" class="mono-num">00</span><span class="mono-num">%</span>
+        <span class="preloader-label">CARREGANDO ESTÚDIO BIOLUMINESCENTE</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Desktop Notice (<1024px) -->
+  <div id="desktop-notice" class="desktop-notice">
+    <div class="notice-card glass-panel">
+      <div class="notice-icon">
+        <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
+        </svg>
+      </div>
+      <h2 class="display-title">EXPERIÊNCIA DESKTOP-ONLY</h2>
+      <p class="notice-desc">Este site-experiência utiliza física de iluminação radial, animações GSAP de alta frequência e layout widescreen cinematográfico.</p>
+      <p class="notice-sub">Para vivenciar a experiência completa nível Awwwards, abra em uma tela igual ou superior a <strong>1024px</strong>.</p>
+      <div class="notice-badge">
+        <span class="glow-dot"></span> ⚡ GATORADE HYDRO LAB
+      </div>
+    </div>
+  </div>
+
+  <!-- Dynamic Background & Ambient Glow Backdrop -->
+  <div id="ambient-glow" class="ambient-glow-layer">
+    <div id="glow-blob" class="glow-blob"></div>
+    <div class="noise-overlay"></div>
+  </div>
+
+  <!-- MAIN SCROLL CONTAINER -->
+  <main id="main-content">
+
+    <!-- SLIDE 1: OPENING HERO (EXPANDED WITH BRAND LOGO & RICH ELEMENTS) -->
+    <section id="hero" class="slide-section hero-section">
+      <div class="section-container hero-container">
+        
+        <!-- Official Gatorade Emblem -->
+        <div class="hero-logo-badge scroll-anim" data-anim="fade-down">
+          <img src="imagens/imgGATORADE (7).png" alt="Gatorade Official Logo" class="hero-gatorade-logo">
+          <span class="hero-brand-sub mono-num">HYDRO PERFORMANCE LAB // 2026</span>
+        </div>
+
+        <div class="hero-header-wrap">
+          <div class="tag-pill scroll-anim" data-anim="fade-up">
+            <span class="tag-dot"></span> BIOLUMINESCENT HYDRATION SYSTEM
+          </div>
+          <h1 class="hero-title display-title scroll-anim" data-anim="scale-up">
+            RECHARGE <br>
+            <span class="gradient-text">EVERY CELL</span>
+          </h1>
+          <p class="hero-description scroll-anim" data-anim="fade-up">
+            A sinergia perfeita entre água pura ultra-filtrada, saibro de eletrólitos essenciais e o impacto sensorial de sabores inconfundíveis.
+          </p>
+        </div>
+
+        <!-- Lineup completo de garrafas com parallax -->
+        <div class="hero-lineup-stage scroll-anim" data-anim="fade-up">
+          <div class="lineup-glow"></div>
+          <img src="imagens/imgGATORADE (2).png" alt="Gatorade Flavors Lineup" class="hero-lineup-img" id="hero-lineup-img">
+          
+          <!-- Floating spec badges -->
+          <div class="floating-spec spec-left glass-card">
+            <span class="spec-label mono-num">01. OSMA</span>
+            <span class="spec-val">Isotônico Fluido</span>
+            <span class="spec-sub">Rápida Absorção Celular</span>
+          </div>
+
+          <div class="floating-spec spec-right glass-card">
+            <span class="spec-label mono-num">02. ELEC</span>
+            <span class="spec-val">Na+ & K+ Balance</span>
+            <span class="spec-sub">Prevenção Anti-Fadiga</span>
+          </div>
+        </div>
+
+        <div class="scroll-indicator">
+          <span class="scroll-text mono-num">SCROLL PARA EXPLORAR A EXPERIÊNCIA</span>
+          <div class="scroll-line">
+            <div class="scroll-dot"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SLIDE 2: FULLSCREEN SPOTLIGHT POR VARIANTE (PINNED BOTTLE HERO + SIDE TEXT) -->
+    <section id="spotlight-pin" class="slide-section spotlight-pinned-section">
+      <div class="spotlight-stage-wrapper">
+        
+        <!-- Background Giant Flavor Typography (Morphs on slide change) -->
+        <div class="flavor-bg-text-wrap">
+          <span id="flavor-bg-text" class="flavor-bg-text">MORANGO</span>
+        </div>
+
+        <!-- Central Bottle Core (The Main Star Element) -->
+        <div class="spotlight-bottle-core">
+          <div class="bottle-glow-halo" id="bottle-halo"></div>
+          
+          <div class="bottle-render-wrap">
+            <img id="spotlight-bottle-img" src="imagens/imgGATORADE (4).png" alt="Gatorade Morango Maracujá" class="spotlight-bottle-img">
+          </div>
+
+          <div class="liquid-ripples">
+            <div class="ripple r1"></div>
+            <div class="ripple r2"></div>
+          </div>
+        </div>
+
+        <!-- Compact Floating Side Info Card (Left Side) -->
+        <div class="spotlight-info-card card-left glass-panel" id="spotlight-card-left">
+          <div class="card-tag">VARIANTE ATIVA <span id="flavor-code-tag" class="mono-num">#01</span></div>
+          <h2 id="flavor-title" class="flavor-title display-title">MORANGO MARACUJÁ</h2>
+          <p id="flavor-desc" class="flavor-desc">
+            Equilíbrio energético vibrante com o dulçor natural do morango e a acidez revigorante do maracujá.
+          </p>
+          <div class="flavor-purity-bar">
+            <span class="purity-label">Perfil Sensorial</span>
+            <div class="purity-track">
+              <div id="purity-fill" class="purity-fill" style="width: 94%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Compact Floating Side Nutri Specs (Right Side) -->
+        <div class="spotlight-info-card card-right glass-panel" id="spotlight-card-right">
+          <div class="card-tag">ESPECIFICAÇÕES TÉCNICAS</div>
+          
+          <div class="specs-grid">
+            <div class="spec-item">
+              <span class="spec-num mono-num" id="spec-vol">500ml</span>
+              <span class="spec-name">VOLUME LÍQUIDO</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-num mono-num" id="spec-na">230mg</span>
+              <span class="spec-name">SÓDIO (ELECTRO)</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-num mono-num" id="spec-k">60mg</span>
+              <span class="spec-name">POTÁSSIO</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-num mono-num" id="spec-carbo">30g</span>
+              <span class="spec-name">CARBO-ENERGY</span>
+            </div>
+          </div>
+
+          <div class="flavor-controls">
+            <span class="control-label mono-num">SLIDE <span id="current-slide-num">01</span> / 04</span>
+            <div class="dots-indicators">
+              <button class="dot-btn active" data-slide="0" aria-label="Sabor 1"></button>
+              <button class="dot-btn" data-slide="1" aria-label="Sabor 2"></button>
+              <button class="dot-btn" data-slide="2" aria-label="Sabor 3"></button>
+              <button class="dot-btn" data-slide="3" aria-label="Sabor 4"></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SLIDE 3: FLOATING BENEFIT BALLOONS ON SCROLL (INSPIRADO NO REEL RECHERADO DE COMPONENTES) -->
+    <section id="benefits-pin" class="slide-section benefits-pinned-section">
+      <div class="benefits-stage-wrapper">
+        
+        <div class="section-header center-header scroll-anim" data-anim="fade-up">
+          <div class="tag-pill">CIÊNCIA DA HIDRATAÇÃO</div>
+          <h2 class="display-title section-title">BENEFÍCIOS DE ALTA PERFORMANCE</h2>
+          <p class="section-subtitle">Conforme você avança, descubra como cada molécula age no seu organismo.</p>
+        </div>
+
+        <!-- Central Product Hero for Benefits -->
+        <div class="benefits-bottle-hero">
+          <img src="imagens/imgGATORADE (2).png" alt="Gatorade Hydro Line" class="benefits-bottle-img">
+        </div>
+
+        <!-- Floating Benefit Balloons (Rising cards on scroll) -->
+        <div class="benefit-balloon balloon-1 glass-panel">
+          <div class="balloon-icon">⚡</div>
+          <div class="balloon-text-wrap">
+            <span class="balloon-title">REPOSIÇÃO RÁPIDA</span>
+            <span class="balloon-desc">Eletrólitos Na+ e K+ absorvidos 3x mais rápido que água pura.</span>
+          </div>
+        </div>
+
+        <div class="benefit-balloon balloon-2 glass-panel">
+          <div class="balloon-icon">💧</div>
+          <div class="balloon-text-wrap">
+            <span class="balloon-title">EQUILÍBRIO OSMÓTICO</span>
+            <span class="balloon-desc">Fórmula isotônica que previne a desidratação celular e cãibras.</span>
+          </div>
+        </div>
+
+        <div class="benefit-balloon balloon-3 glass-panel">
+          <div class="balloon-icon">🔥</div>
+          <div class="balloon-text-wrap">
+            <span class="balloon-title">ENERGIA SUSTENTADA</span>
+            <span class="balloon-desc">Combustível de carboidratos simples para manter o ápice do rendimento.</span>
+          </div>
+        </div>
+
+        <div class="benefit-balloon balloon-4 glass-panel">
+          <div class="balloon-icon">🛡️</div>
+          <div class="balloon-text-wrap">
+            <span class="balloon-title">ZERO GLÚTEN & GORDURA</span>
+            <span class="balloon-desc">Fórmula pura desenvolvida para máxima eficiência digestiva em treino.</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SLIDE 4: VIDEO SCROLL EXPERIENCE (REEL DA MARCA) -->
+    <section id="video-section" class="slide-section video-scroll-section">
+      <div class="video-container-wrap">
+        
+        <div class="video-overlay-header">
+          <div class="tag-pill">IMERSÃO VISUAL</div>
+          <h2 class="display-title video-title">MOVIMENTO & LUZ EM AÇÃO</h2>
+          <span class="mono-num video-sub">// SCROLL PARA CONTROLAR A REPRODUÇÃO</span>
+        </div>
+
+        <div class="video-frame glass-panel">
+          <video id="scroll-video" class="scroll-video" muted playsinline preload="auto">
+            <source src="imagens/não_alyere_tanto_os_componetes.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+          </video>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SLIDE 5: SELEÇÃO ASSIMÉTRICA ("ESCOLHA A SUA ENERGIA") -->
+    <section id="selection" class="slide-section selection-section">
+      <div class="section-container">
+        
+        <div class="section-header center-header scroll-anim" data-anim="fade-up">
+          <div class="tag-pill">VARIANTE HARMONY</div>
+          <h2 class="display-title section-title">ESCOLHA A SUA ENERGIA</h2>
+          <p class="section-subtitle">Disposição assimétrica orgânica da linha de isotônicos com bioluminescência sintonizada em cada garrafa.</p>
+        </div>
+
+        <!-- Asymmetric staggered layout -->
+        <div class="asymmetric-grid">
+          
+          <!-- Card 1: Morango Maracujá -->
+          <div class="asymmetric-card card-pos-1 glass-panel scroll-anim" data-anim="fade-up" data-glow="#FF1E43" data-bg="#1A0408">
+            <div class="card-glow-bg"></div>
+            <div class="card-img-wrap">
+              <img src="imagens/imgGATORADE (4).png" alt="Morango Maracujá" class="card-bottle-img">
+            </div>
+            <div class="card-content">
+              <span class="card-flavor-code mono-num">RED // ENERGY</span>
+              <h3 class="card-flavor-name">Morango Maracujá</h3>
+              <div class="card-footer">
+                <span class="card-spec-tag">Intensidade Frutada</span>
+                <button class="card-action-btn" aria-label="Ver detalhes">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Uva -->
+          <div class="asymmetric-card card-pos-2 glass-panel scroll-anim" data-anim="fade-up" data-glow="#8A2BE2" data-bg="#150524">
+            <div class="card-glow-bg"></div>
+            <div class="card-img-wrap">
+              <img src="imagens/imgGATORADE (5).png" alt="Uva" class="card-bottle-img">
+            </div>
+            <div class="card-content">
+              <span class="card-flavor-code mono-num">PURPLE // DEEP</span>
+              <h3 class="card-flavor-name">Uva Intenso</h3>
+              <div class="card-footer">
+                <span class="card-spec-tag">Recuperação Celular</span>
+                <button class="card-action-btn" aria-label="Ver detalhes">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Berry Blue -->
+          <div class="asymmetric-card card-pos-3 glass-panel scroll-anim" data-anim="fade-up" data-glow="#0070FF" data-bg="#041126">
+            <div class="card-glow-bg"></div>
+            <div class="card-img-wrap">
+              <img src="imagens/imgGATORADE.png" alt="Berry Blue" class="card-bottle-img">
+            </div>
+            <div class="card-content">
+              <span class="card-flavor-code mono-num">BLUE // HYDRO</span>
+              <h3 class="card-flavor-name">Berry Blue</h3>
+              <div class="card-footer">
+                <span class="card-spec-tag">Refrescância Máxima</span>
+                <button class="card-action-btn" aria-label="Ver detalhes">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Laranja -->
+          <div class="asymmetric-card card-pos-4 glass-panel scroll-anim" data-anim="fade-up" data-glow="#FF6B00" data-bg="#240B00">
+            <div class="card-glow-bg"></div>
+            <div class="card-img-wrap">
+              <img src="imagens/imgGATORADE (1).png" alt="Laranja" class="card-bottle-img">
+            </div>
+            <div class="card-content">
+              <span class="card-flavor-code mono-num">ORANGE // SOLAR</span>
+              <h3 class="card-flavor-name">Laranja Solar</h3>
+              <div class="card-footer">
+                <span class="card-spec-tag">Impulso Citrino</span>
+                <button class="card-action-btn" aria-label="Ver detalhes">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SLIDE 6: MOMENTO DE MARCA (PAUSA VISUAL COM LOGO GATORADE ATUALIZADO) -->
+    <section id="brand-moment" class="slide-section brand-moment-section">
+      <div class="brand-pause-stage scroll-anim" data-anim="scale-up">
+        
+        <div class="brand-glow-halo"></div>
+
+        <div class="brand-symbol-wrap">
+          <img src="imagens/imgGATORADE (7).png" alt="Gatorade Symbol" class="brand-huge-g-logo">
+        </div>
+
+        <div class="brand-tagline">
+          <span class="mono-num">// PURE HYDRODYNAMICS & ELECTRICAL FLUIDS</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SLIDE 7: FECHAMENTO / CTA -->
+    <section id="closing" class="slide-section closing-section">
+      <div class="section-container closing-container">
+        
+        <div class="closing-card glass-panel scroll-anim" data-anim="fade-up">
+          <div class="closing-glow"></div>
+          
+          <div class="closing-grid">
+            
+            <div class="closing-visual">
+              <img src="imagens/imgGATORADE (2).png" alt="Gatorade Product Line" class="closing-img">
+            </div>
+
+            <div class="closing-text-wrap">
+              <div class="tag-pill">SEJA INVENCIÁVEL</div>
+              <h2 class="display-title closing-title">
+                SINTA A ENERGIA DA <br>
+                <span class="gradient-text">HIDRATAÇÃO EXTREMA</span>
+              </h2>
+              <p class="closing-desc">
+                Desenvolvido cientificamente para atletas, mentes ativas e quem busca o ápice do rendimento diário.
+              </p>
+
+              <div class="closing-stats-row">
+                <div class="closing-stat">
+                  <span class="stat-num mono-num">0%</span>
+                  <span class="stat-label">GORDURA & GLÚTEN</span>
+                </div>
+                <div class="closing-stat-divider"></div>
+                <div class="closing-stat">
+                  <span class="stat-num mono-num">100%</span>
+                  <span class="stat-label">ABSORÇÃO RÁPIDA</span>
+                </div>
+                <div class="closing-stat-divider"></div>
+                <div class="closing-stat">
+                  <span class="stat-num mono-num">500ml</span>
+                  <span class="stat-label">ENERGIA PURA</span>
+                </div>
+              </div>
+
+              <div class="closing-cta-actions">
+                <a href="#hero" class="primary-btn-gatorade">
+                  <span>ENCONTRAR PONTO DE VENDA</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER MINIMALISTA -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <span class="brand-logo-text">GATORADE ®</span>
+        <span class="footer-copy">© 2026 Gatorade Performance Lab. Todos os direitos reservados.</span>
+      </div>
+
+      <div class="footer-right">
+        <span class="mono-num footer-badge">AWWWARDS CANDIDATE // DESK EXPERIENCE</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.9/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="main.js"></script>
+
+</body>
+</html>
