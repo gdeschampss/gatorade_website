@@ -1,5 +1,5 @@
 /* ==========================================================================
-   GATORADE ® — AWWWARDS SITE-EXPERIÊNCIA
+   GATORADE ® — AWWWARDS SITE-EXPERIÊNCIA v3
    GSAP 3 + ScrollTrigger + Lenis Smooth Scroll Engine
    ========================================================================== */
 
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   gsap.ticker.lagSmoothing(0);
 
   /* --------------------------------------------------------------------------
-     2. PRELOADER ENGINE & ENTRANCE ANIMATION
+     2. PRELOADER ENGINE & HERO ENTRANCE
      -------------------------------------------------------------------------- */
   const preloader = document.getElementById('preloader');
   const preloaderFill = document.getElementById('preloader-fill');
@@ -41,10 +41,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const imagesToLoad = [
     'imagens/imgGATORADE.png',
     'imagens/imgGATORADE (1).png',
-    'imagens/imgGATORADE (2).png',
+    'imagens/imgGATORADE (3).png',
     'imagens/imgGATORADE (4).png',
     'imagens/imgGATORADE (5).png',
-    'imagens/imgGATORADE (7).png'
+    'imagens/imgGATORADE (7).png',
+    'imagens/ChatGPT Image 3 de ago. de 2026, 21_14_01.png',
+    'imagens/ChatGPT Image 3 de ago. de 2026, 21_15_03.png',
+    'imagens/ChatGPT Image 3 de ago. de 2026, 21_15_51.png'
   ];
 
   let loadedCount = 0;
@@ -74,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (preloader && !preloader.classList.contains('loaded')) {
       finishPreloader();
     }
-  }, 3000);
+  }, 3500);
 
   function finishPreloader() {
     if (preloader) preloader.classList.add('loaded');
@@ -84,14 +87,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     heroTl
       .from('.hero-logo-badge', {
-        y: -40,
+        y: -30,
         opacity: 0,
         delay: 0.2
       })
-      .from('.hero-header-wrap > *', {
-        y: 50,
+      .from('.hero-title', {
+        y: '100%',
         opacity: 0,
-        stagger: 0.15
+        duration: 1.2
+      }, '-=0.8')
+      .from('.hero-description', {
+        y: 16,
+        opacity: 0,
+        duration: 0.85
       }, '-=0.8')
       .from('.hero-lineup-img', {
         scale: 0.85,
@@ -99,9 +107,9 @@ document.addEventListener('DOMContentLoaded', () => {
         duration: 1.4
       }, '-=0.8')
       .from('.floating-spec', {
-        y: 30,
+        y: 20,
         opacity: 0,
-        stagger: 0.2
+        stagger: 0.15
       }, '-=1.0');
   }
 
@@ -113,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
       id: 0,
       name: "MORANGO MARACUJÁ",
       bgText: "MORANGO",
-      img: "imagens/imgGATORADE (4).png",
+      img: "imagens/imgGATORADE (5).png",
       glowColor: "#FF1E43",
       bgColor: "#1A0408",
       codeTag: "#01",
@@ -128,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
       id: 1,
       name: "UVA INTENSO",
       bgText: "UVA",
-      img: "imagens/imgGATORADE (5).png",
+      img: "imagens/imgGATORADE (4).png",
       glowColor: "#8A2BE2",
       bgColor: "#150524",
       codeTag: "#02",
@@ -312,12 +320,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Animate each balloon rising from bottom to top sequentially
     balloons.forEach((balloon, i) => {
       benefitsTl.to(balloon, {
         opacity: 1,
         y: 0,
-        scale: 1.05,
+        scale: 1.02,
         duration: 1,
         ease: "power2.out"
       }, i * 0.8);
@@ -325,35 +332,37 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* --------------------------------------------------------------------------
-     5. VIDEO SCROLL SCRUB CONTROL ENGINE
+     5. CHATGPT VISUAL SHOWCASE ENGINE ON SCROLL WITH EDGE BLUR BLEND
      -------------------------------------------------------------------------- */
-  const videoSection = document.getElementById('video-section');
-  const scrollVideo = document.getElementById('scroll-video');
+  const turntablePin = document.getElementById('turntable-pin');
+  const showcaseFrames = document.querySelectorAll('.showcase-frame');
+  const showcaseNumVal = document.getElementById('showcase-num-val');
+  let currentActiveFrame = 0;
 
-  if (videoSection && scrollVideo) {
-    scrollVideo.pause();
-    scrollVideo.currentTime = 0;
+  if (turntablePin && showcaseFrames.length) {
+    ScrollTrigger.create({
+      trigger: turntablePin,
+      start: "top top",
+      end: "+=2400",
+      pin: true,
+      anticipatePin: 1,
+      scrub: 0.6,
+      onUpdate: (self) => {
+        const progress = self.progress;
+        let frameIndex = Math.floor(progress * showcaseFrames.length);
+        if (frameIndex >= showcaseFrames.length) frameIndex = showcaseFrames.length - 1;
 
-    const initVideoScrub = () => {
-      ScrollTrigger.create({
-        trigger: videoSection,
-        start: "top top",
-        end: "+=2500",
-        pin: true,
-        scrub: 0.5,
-        onUpdate: (self) => {
-          if (scrollVideo.duration) {
-            scrollVideo.currentTime = self.progress * scrollVideo.duration;
+        if (frameIndex !== currentActiveFrame) {
+          showcaseFrames[currentActiveFrame].classList.remove('active-frame');
+          showcaseFrames[frameIndex].classList.add('active-frame');
+          currentActiveFrame = frameIndex;
+
+          if (showcaseNumVal) {
+            showcaseNumVal.textContent = `0${frameIndex + 1}`;
           }
         }
-      });
-    };
-
-    if (scrollVideo.readyState >= 1) {
-      initVideoScrub();
-    } else {
-      scrollVideo.addEventListener('loadedmetadata', initVideoScrub);
-    }
+      }
+    });
   }
 
   /* --------------------------------------------------------------------------
@@ -391,7 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* --------------------------------------------------------------------------
-     7. ASYMMETRIC SELECTION CARDS — 3D TILT & DYNAMIC BG CHANGE
+     7. ASYMMETRIC SELECTION CARDS — 3D TILT & HOVER GLOW
      -------------------------------------------------------------------------- */
   const asymmetricCards = document.querySelectorAll('.asymmetric-card');
   
@@ -440,26 +449,55 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* --------------------------------------------------------------------------
-     8. GLOBAL SCROLL ENTRANCE ANIMATIONS FOR ALL ITEMS
+     8. ANIMAÇÕES DE ENTRADA E SCROLL COM HIERARQUIA VISUAL
      -------------------------------------------------------------------------- */
-  const animElements = document.querySelectorAll('.scroll-anim');
-  
-  animElements.forEach((el) => {
-    const animType = el.getAttribute('data-anim') || 'fade-up';
-    let fromState = { opacity: 0, y: 40 };
 
-    if (animType === 'fade-down') fromState = { opacity: 0, y: -40 };
-    if (animType === 'scale-up') fromState = { opacity: 0, scale: 0.88 };
-
-    gsap.from(el, {
+  // A. H1 / H2 Display Titles Reveal (Reveal de baixo pra cima com clip-path)
+  const animTitles = document.querySelectorAll('.anim-title');
+  animTitles.forEach((title) => {
+    gsap.from(title, {
       scrollTrigger: {
-        trigger: el,
-        start: "top 85%",
+        trigger: title,
+        start: "top 88%",
         toggleActions: "play none none reverse"
       },
-      ...fromState,
-      duration: 1,
-      ease: "power3.out"
+      y: "100%",
+      opacity: 0,
+      duration: 1.1,
+      ease: "power4.out"
+    });
+  });
+
+  // B. Paragraphs / Supportive Text (Entrada suave simples 16px)
+  const animDescs = document.querySelectorAll('.anim-desc');
+  animDescs.forEach((desc) => {
+    gsap.from(desc, {
+      scrollTrigger: {
+        trigger: desc,
+        start: "top 90%",
+        toggleActions: "play none none reverse"
+      },
+      y: 16,
+      opacity: 0,
+      duration: 0.85,
+      ease: "power2.out"
+    });
+  });
+
+  // C. Secondary Specs / Badges / Sub-elements (Entrada rápida imperceptível com stagger)
+  const animSubs = document.querySelectorAll('.anim-sub');
+  animSubs.forEach((sub) => {
+    gsap.from(sub, {
+      scrollTrigger: {
+        trigger: sub,
+        start: "top 92%",
+        toggleActions: "play none none reverse"
+      },
+      y: 10,
+      opacity: 0,
+      duration: 0.5,
+      stagger: 0.05,
+      ease: "power1.out"
     });
   });
 
