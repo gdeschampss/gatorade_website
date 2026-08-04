@@ -304,10 +304,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* --------------------------------------------------------------------------
-     4. SLIDE FLOATING BENEFIT BALLOONS ON SCROLL
+     4. SLIDE FLOATING BENEFIT BALLOONS & HAND-DRAWN ARROWS ON SCROLL
      -------------------------------------------------------------------------- */
   const benefitsPin = document.getElementById('benefits-pin');
   const balloons = document.querySelectorAll('.benefit-balloon');
+  const arrows = document.querySelectorAll('.hand-drawn-arrow');
 
   if (benefitsPin && balloons.length) {
     const benefitsTl = gsap.timeline({
@@ -320,30 +321,56 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    // Initialize arrows stroke dasharray/offset for drawing animation
+    arrows.forEach((arrow) => {
+      const length = arrow.getTotalLength ? arrow.getTotalLength() : 400;
+      gsap.set(arrow, {
+        strokeDasharray: length,
+        strokeDashoffset: length,
+        opacity: 0
+      });
+    });
+
     balloons.forEach((balloon, i) => {
+      const startTime = i * 0.8;
+
+      // Animate Card
       benefitsTl.to(balloon, {
         opacity: 1,
         y: 0,
         scale: 1.02,
         duration: 1,
         ease: "power2.out"
-      }, i * 0.8);
+      }, startTime);
+
+      // Animate corresponding hand-drawn arrow line drawing effect
+      if (arrows[i]) {
+        benefitsTl.to(arrows[i], {
+          opacity: 1,
+          duration: 0.1
+        }, startTime);
+
+        benefitsTl.to(arrows[i], {
+          strokeDashoffset: 0,
+          duration: 1.1,
+          ease: "power1.inOut"
+        }, startTime + 0.1);
+      }
     });
   }
 
   /* --------------------------------------------------------------------------
-     5. CHATGPT VISUAL SHOWCASE ENGINE ON SCROLL WITH EDGE BLUR BLEND
+     5. CHATGPT VISUAL SHOWCASE ENGINE ON SCROLL WITH PIN & FRAME SWAP
      -------------------------------------------------------------------------- */
   const turntablePin = document.getElementById('turntable-pin');
-  const showcaseFrames = document.querySelectorAll('.showcase-frame');
-  const showcaseNumVal = document.getElementById('showcase-num-val');
+  const showcaseFrames = document.querySelectorAll('.showcase-fullscreen-frame');
   let currentActiveFrame = 0;
 
   if (turntablePin && showcaseFrames.length) {
     ScrollTrigger.create({
       trigger: turntablePin,
       start: "top top",
-      end: "+=2400",
+      end: "+=2600",
       pin: true,
       anticipatePin: 1,
       scrub: 0.6,
@@ -356,10 +383,6 @@ document.addEventListener('DOMContentLoaded', () => {
           showcaseFrames[currentActiveFrame].classList.remove('active-frame');
           showcaseFrames[frameIndex].classList.add('active-frame');
           currentActiveFrame = frameIndex;
-
-          if (showcaseNumVal) {
-            showcaseNumVal.textContent = `0${frameIndex + 1}`;
-          }
         }
       }
     });

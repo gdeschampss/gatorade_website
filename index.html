@@ -100,10 +100,10 @@
           </p>
         </div>
 
-        <!-- Lineup com imgGATORADE (3).png -->
+        <!-- Lineup com herosection_IMG.png -->
         <div class="hero-lineup-stage anim-sub">
           <div class="lineup-glow"></div>
-          <img src="imagens/imgGATORADE (3).png" alt="Gatorade Flavors Lineup" class="hero-lineup-img" id="hero-lineup-img">
+          <img src="imagens/herosection_IMG.png" alt="Gatorade Hydro Lineup" class="hero-lineup-img" id="hero-lineup-img">
           
           <!-- Floating spec badges -->
           <div class="floating-spec spec-left glass-card">
@@ -225,6 +225,38 @@
           <img src="imagens/imgGATORADE (2).png" alt="Gatorade Hydro Lineup" class="benefits-bottle-img">
         </div>
 
+        <!-- Hand-Drawn SVG Mental Map Arrows Layer -->
+        <svg class="benefits-arrows-svg" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <!-- Hand-drawn pencil/pen jitter filter -->
+            <filter id="pencil-filter" x="-10%" y="-10%" width="120%" height="120%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise" />
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+          </defs>
+          <g filter="url(#pencil-filter)">
+            <!-- Top-Left Arrow (Card 1 -> Bottles) -->
+            <path class="hand-drawn-arrow arrow-1" 
+                  d="M 330 290 Q 400 325 455 315 M 455 315 L 438 302 M 455 315 L 442 325" 
+                  stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+
+            <!-- Top-Right Arrow (Card 2 -> Bottles) -->
+            <path class="hand-drawn-arrow arrow-2" 
+                  d="M 870 290 Q 800 325 745 315 M 745 315 L 762 302 M 745 315 L 758 325" 
+                  stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+
+            <!-- Bottom-Left Arrow (Card 3 -> Bottles) -->
+            <path class="hand-drawn-arrow arrow-3" 
+                  d="M 350 535 Q 405 515 460 475 M 460 475 L 442 478 M 460 475 L 452 492" 
+                  stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+
+            <!-- Bottom-Right Arrow (Card 4 -> Bottles) -->
+            <path class="hand-drawn-arrow arrow-4" 
+                  d="M 840 535 Q 790 515 740 480 M 740 480 L 758 483 M 740 480 L 748 497" 
+                  stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+          </g>
+        </svg>
+
         <!-- Floating Benefit Cards with Glass Vidro Effect -->
         <div class="benefit-balloon benefit-glass-card balloon-1">
           <div class="balloon-icon-wrap">
@@ -306,15 +338,11 @@
           <div class="title-reveal-wrap">
             <h2 class="display-title showcase-fullscreen-title anim-title">
               MUITO MAIS SABOR, <br>
-              <span class="gradient-text">MUITO MAIS ENERGIA!</span>
+              MUITO MAIS ENERGIA!
             </h2>
           </div>
 
           <span class="mono-num showcase-sub">// SCROLL PARA TROCAR DE AMBIENTE VISUAL</span>
-        </div>
-
-        <div class="showcase-fullscreen-counter mono-num">
-          SABORES LAB // <span id="showcase-num-val">01</span> / 03
         </div>
 
       </div>
