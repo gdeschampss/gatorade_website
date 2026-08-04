@@ -1,6 +1,6 @@
 /* ==========================================================================
-   GATORADE ® — AWWWARDS SITE-EXPERIÊNCIA v3.1
-   Design System, Glass Benefits, Fullscreen Studio & Video Reel
+   GATORADE ® — AWWWARDS SITE-EXPERIÊNCIA v3.2 (FINAL)
+   Design System, Borderless Video Reel, Fullscreen Background Showcase
    ========================================================================== */
 
 :root {
@@ -897,14 +897,13 @@ html, body {
   line-height: 1.45;
 }
 
-/* Card positions tuned to avoid overlapping header title and central bottles */
 .balloon-1 { top: 36%; left: 6%; }
 .balloon-2 { top: 36%; right: 6%; }
 .balloon-3 { bottom: 16%; left: 8%; }
 .balloon-4 { bottom: 16%; right: 8%; }
 
 /* --------------------------------------------------------------------------
-   SLIDE 4: ESTÚDIO DE HIDRATAÇÃO (FULLSCREEN CHATGPT SHOWCASE + OVERLAY BANNER)
+   SLIDE 4: ESTÚDIO DE HIDRATAÇÃO (FULLSCREEN BACKGROUND CHATGPT SHOWCASE)
    -------------------------------------------------------------------------- */
 .showcase-fullscreen-section {
   height: 100vh;
@@ -975,7 +974,6 @@ html, body {
   filter: contrast(1.08) saturate(1.1);
 }
 
-/* Radial Scrim Gradient Overlay for edge blur connection */
 .showcase-scrim-gradient {
   position: absolute;
   inset: 0;
@@ -997,7 +995,7 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   SLIDE 5: NOVA SEÇÃO DE VÍDEO REEL (agora_somente_faa_um_video_com (1).mp4)
+   SLIDE 5: VÍDEO REEL SEM BORDA E SEM BADGE DE TEXTO (BORDERLESS)
    -------------------------------------------------------------------------- */
 .video-reel-section {
   padding: 100px 0;
@@ -1011,14 +1009,16 @@ html, body {
   gap: 30px;
 }
 
-.video-reel-frame {
+.video-reel-frame.borderless-reel {
   width: 100%;
   max-width: 1100px;
-  height: 560px;
+  height: 580px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
-  border-radius: 24px;
+  border-radius: 20px;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .reel-video {
@@ -1026,22 +1026,7 @@ html, body {
   height: 100%;
   object-fit: cover;
   display: block;
-}
-
-.reel-overlay-badge {
-  position: absolute;
-  bottom: 24px;
-  left: 24px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 18px;
-  background: rgba(7, 8, 10, 0.75);
-  backdrop-filter: blur(12px);
-  border-radius: 100px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  font-size: 0.72rem;
-  color: var(--text-primary);
+  border-radius: 20px;
 }
 
 /* --------------------------------------------------------------------------
