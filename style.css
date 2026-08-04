@@ -1,6 +1,6 @@
 /* ==========================================================================
-   GATORADE ® — AWWWARDS SITE-EXPERIÊNCIA v3.2 (FINAL)
-   Design System, Borderless Video Reel, Fullscreen Background Showcase
+   GATORADE ® — AWWWARDS SITE-EXPERIÊNCIA v3.3 (FINAL)
+   Design System, Background Video Section, Fullscreen Background Showcase
    ========================================================================== */
 
 :root {
@@ -995,38 +995,49 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   SLIDE 5: VÍDEO REEL SEM BORDA E SEM BADGE DE TEXTO (BORDERLESS)
+   SLIDE 5: VÍDEO DA LOGO GATORADE COMO BACKGROUND DA SEÇÃO COMPLETA
    -------------------------------------------------------------------------- */
 .video-reel-section {
-  padding: 100px 0;
-  background-color: #040507;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding: 120px 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reel-video-bg-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.reel-bg-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.55;
+  filter: saturate(1.2) contrast(1.1);
+}
+
+.reel-video-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(7, 8, 10, 0.65) 0%, rgba(7, 8, 10, 0.88) 100%);
+  pointer-events: none;
 }
 
 .video-reel-container {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 30px;
-}
-
-.video-reel-frame.borderless-reel {
-  width: 100%;
-  max-width: 1100px;
-  height: 580px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 20px;
-  background: none !important;
-  border: none !important;
-  box-shadow: none !important;
-}
-
-.reel-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  border-radius: 20px;
+  text-align: center;
 }
 
 /* --------------------------------------------------------------------------
